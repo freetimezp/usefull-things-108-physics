@@ -25,6 +25,8 @@ let animationActive = false;
 function setup() {
     let canvas = createCanvas(windowWidth, windowHeight - 60);
     canvas.parent("canvas-section");
+    canvas.elt.style.background = "transparent";
+
     engine = Engine.create();
 
     ground = Bodies.rectangle(width / 2, height - 20, width, 10, { isStatic: true });
@@ -40,7 +42,12 @@ function setup() {
 function draw() {
     if (!animationActive) return;
 
-    background("#121212");
+    clear();
+
+    noStroke();
+    fill(0, 0, 0, 0);
+    rect(0, 0, width, height);
+
     Engine.update(engine);
 
     for (let word of words) {
