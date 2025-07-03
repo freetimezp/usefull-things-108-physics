@@ -12,9 +12,8 @@ a {
 
 body {
     width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: green;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 canvas {
@@ -23,4 +22,31 @@ canvas {
     left: 0;
     width: 100vw !important;
     height: 100vh !important;
+}
+
+section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-section {
+    background-color: #202020;
+}
+.footer-section {
+    background-color: #100f0f;
+}
+
+section p {
+    font-size: 28px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#canvas-section {
+    position: relative;
+    background-color: #121212;
 }

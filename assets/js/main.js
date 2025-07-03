@@ -7,12 +7,6 @@ let engine;
 let words = [];
 let ground, wallLeft, wallRight;
 
-let bg;
-
-function preload() {
-    bg = loadImage("./assets/images/bg.jpg");
-}
-
 let wordsToDisplay = [
     "Facebook",
     "Instagram",
@@ -26,20 +20,16 @@ let wordsToDisplay = [
     "Viber",
 ];
 
+let animationActive = false;
+
 function setup() {
-    createCanvas(windowWidth, windowHeight - 60);
+    let canvas = createCanvas(windowWidth, windowHeight - 60);
+    canvas.parent("canvas-section");
     engine = Engine.create();
 
-    ground = Bodies.rectangle(width / 2, height - 20, width, 10, {
-        isStatic: true,
-    });
-    wallLeft = Bodies.rectangle(0, height / 2, 10, height, {
-        isStatic: true,
-    });
-    wallRight = Bodies.rectangle(width, height / 2, 10, height, {
-        isStatic: true,
-    });
-
+    ground = Bodies.rectangle(width / 2, height - 20, width, 10, { isStatic: true });
+    wallLeft = Bodies.rectangle(0, height / 2, 10, height, { isStatic: true });
+    wallRight = Bodies.rectangle(width, height / 2, 10, height, { isStatic: true });
     World.add(engine.world, [ground, wallLeft, wallRight]);
 
     for (let i = 0; i < wordsToDisplay.length; i++) {
@@ -48,8 +38,9 @@ function setup() {
 }
 
 function draw() {
-    image(bg, 0, 0, width, height);
+    if (!animationActive) return;
 
+    background("#121212");
     Engine.update(engine);
 
     for (let word of words) {
@@ -97,3 +88,25 @@ function mouseMoved() {
         }
     }
 }
+
+const observer = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            animationActive = entry.isIntersecting;
+        });
+    },
+    {
+        threshold: 0.5,
+    }
+);
+
+observer.observe(document.querySelector("#canvas-section"));
+
+const lenis = new Lenis();
+
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+}
+
+requestAnimationFrame(raf);
