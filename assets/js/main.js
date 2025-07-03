@@ -1,4 +1,3 @@
-
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
@@ -8,17 +7,23 @@ let engine;
 let words = [];
 let ground, wallLeft, wallRight;
 
+let bg;
+
+function preload() {
+    bg = loadImage("./assets/images/bg.jpg");
+}
+
 let wordsToDisplay = [
-    'Facebook',
-    'Instagram',
-    'Twitter',
-    'LinkedIn',
-    'Github',
-    'Youtube',
-    'Discord',
-    'Google',
-    'Gmail',
-    'Viber'
+    "Facebook",
+    "Instagram",
+    "Twitter",
+    "LinkedIn",
+    "Github",
+    "Youtube",
+    "Discord",
+    "Google",
+    "Gmail",
+    "Viber",
 ];
 
 function setup() {
@@ -26,13 +31,13 @@ function setup() {
     engine = Engine.create();
 
     ground = Bodies.rectangle(width / 2, height - 20, width, 10, {
-        isStatic: true
+        isStatic: true,
     });
     wallLeft = Bodies.rectangle(0, height / 2, 10, height, {
-        isStatic: true
+        isStatic: true,
     });
     wallRight = Bodies.rectangle(width, height / 2, 10, height, {
-        isStatic: true
+        isStatic: true,
     });
 
     World.add(engine.world, [ground, wallLeft, wallRight]);
@@ -43,7 +48,8 @@ function setup() {
 }
 
 function draw() {
-    background('#606060');
+    image(bg, 0, 0, width, height);
+
     Engine.update(engine);
 
     for (let word of words) {
@@ -72,7 +78,7 @@ class Word {
         strokeWeight(3);
         rect(0, 0, this.word.length * 40 + 80, 100, 60);
         noStroke();
-        fill('#0f0f0f');
+        fill("#0f0f0f");
         textSize(40);
         textAlign(CENTER, CENTER);
         text(this.word.toUpperCase(), 0, 0);
@@ -91,28 +97,3 @@ function mouseMoved() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
